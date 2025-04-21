@@ -3,33 +3,28 @@ import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { FaGithub, FaDribbble, FaFigma } from "react-icons/fa";
 import Dropdown from './Dropdown';
+import Link from "next/link";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
   const navLinks = [
-    { href: "#home", label: "Home" },
-    { href: "#works", label: "Works" },
-    { href: "#about-me", label: "About-me" },
-    { href: "#contacts", label: "Contacts" },
+    { href: "/", label: "Home" },
+    { href: "/projects", label: "Works" },
+    { href: "/aboutus", label: "About-me" },
+    { href: "/contact", label: "Contacts" },
   ];
 
   return (
     <header className="w-full px-4 md:px-8 py-4 bg-[#1a1a1a] text-white fixed top-0 z-50">
       <div className="flex items-center justify-between">
         {/* Logo */}
-        <div className="text-xl font-bold flex items-center gap-2">
-          <svg
-            className="w-5 h-5 text-white"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            viewBox="0 0 24 24"
-          >
-            <path d="M12 4v16m8-8H4" />
-          </svg>
-          JN
+        <Link href={"/"}>
+        <div className="text-xl font-bold flex items-center gap-2 ml-1.5">
+          
+          Jaydeep Ninawe
         </div>
+        </Link>
 
         {/* Desktop Nav */}
         <nav className="hidden md:flex items-center gap-8">
@@ -64,7 +59,7 @@ export default function Navbar() {
               className="text-xl font-medium hover:text-purple-400"
               onClick={() => setIsOpen(false)}
             >
-              #{link.label}
+              {link.label}
             </a>
           ))}
           <div className="text-base mt-2">EN ▾</div>

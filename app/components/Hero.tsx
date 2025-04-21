@@ -1,12 +1,8 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import Projects from "./components/Projects";
-import Skills from "./components/Skills";
-import AboutUs from "./components/Aboutme";
-import Contactus from "./components/Contactus";
-import "./globals.css";
+import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import StarBackground from "./components/StarBackground";
+
+import StarBackground from "./StarBackground";
 
 const greetings = [
   { text: "Hello", flag: "👋" },
@@ -22,7 +18,7 @@ const greetings = [
   { text: "ਸਤ ਸ੍ਰੀ ਅਕਾਲ", flag: "🇮🇳" },
 ];
 
-function Hero() {
+export default function Hero() {
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
@@ -33,11 +29,9 @@ function Hero() {
   }, []);
 
   const scrollToNextSection = () => {
-    const nextSection = document.getElementById("projects");
+    const nextSection = document.getElementById("next-section");
     if (nextSection) {
-      const offset = 80; // height of your navbar
-      const topPosition = nextSection.offsetTop - offset;
-      window.scrollTo({ top: topPosition, behavior: "smooth" });
+      nextSection.scrollIntoView({ behavior: "smooth" });
     }
   };
 
@@ -52,7 +46,7 @@ function Hero() {
       >
         <StarBackground />
 
-        <div className="text-center max-w-4xl px-2 sm:px-4 mt-7">
+        <div className="text-center max-w-4xl px-2 sm:px-4">
           <AnimatePresence mode="wait">
             <motion.div
               key={index}
@@ -76,18 +70,20 @@ function Hero() {
           </AnimatePresence>
 
           <p className="mt-10 p-5 sm:mt-8 text-gray-300 text-base sm:text-lg md:text-xl lg:text-2xl font-mono leading-relaxed">
-            I’m <span className="text-purple-400 font-semibold">Jaydeep</span> — a creative web designer and full-stack developer crafting immersive digital experiences.
+            I’m <span className="text-purple-400 font-semibold">Jaydeep</span> —
+            a creative web designer and full-stack developer crafting immersive
+            digital experiences.
           </p>
 
           {/* Scroll Down GIF Button */}
           <div
-            className="mt-40 cursor-pointer hover:scale-110 transition-transform duration-300"
+            className="mt-10 cursor-pointer hover:scale-110 transition-transform duration-300"
             onClick={scrollToNextSection}
           >
             <img
               src="scroll.gif"
               alt="Scroll down"
-              className="w-28 h-28 sm:w-32 sm:h-32 mx-auto animate-bounce [animation-duration:2.5s] sm:[animation-duration:3s] md:[animation-duration:3.5s]"
+              className="w-20 h-20 sm:w-24 sm:h-24 mx-auto"
             />
           </div>
         </div>
@@ -95,23 +91,3 @@ function Hero() {
     </>
   );
 }
-
-function Page() {
-  return (
-    <div>
-      <Hero />
-      <div id="projects">
-      <AboutUs />
-      </div>
-      
-     
-        <Projects />
-     
-      <Skills />
-      
-      <Contactus/>
-    </div>
-  );
-}
-
-export default Page;
