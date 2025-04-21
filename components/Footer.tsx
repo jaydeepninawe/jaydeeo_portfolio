@@ -1,6 +1,6 @@
 'use client';
 
-import { FaGithub, FaFigma, FaDiscord } from 'react-icons/fa';
+import { FaGithub, FaFigma, FaLinkedin } from 'react-icons/fa';
 
 export default function Footer() {
   return (
@@ -10,28 +10,33 @@ export default function Footer() {
         {/* Left section */}
         <div>
           <h2 className="text-white text-lg font-semibold flex items-center gap-2">
-            <span>🖼 Elias</span>
+            <span>✌️ Jaydeep</span>
             <a href="mailto:elias@elias-dev.ml" className="text-sm text-gray-400 hover:underline">
-              elias@elias-dev.ml
+              {/* Email link is optional */}
             </a>
           </h2>
-          <p className="text-sm mt-1">Web designer and front-end developer</p>
+          <p className="text-sm mt-1">Full-stack developer, specializing in creating responsive<br /> user interfaces and deploying applications seamlessly</p>
         </div>
 
         {/* Right section */}
         <div className="flex flex-col items-start md:items-end gap-3">
           <p className="text-white font-mono">Media</p>
           <div className="flex space-x-4 text-lg">
-            <a href="#" className="hover:text-white transition"><FaGithub /></a>
-            <a href="#" className="hover:text-white transition"><FaFigma /></a>
-            <a href="#" className="hover:text-white transition"><FaDiscord /></a>
+            <a href="https://github.com/jaydeepninawe/" className="hover:text-white transition">
+              <FaGithub />
+            </a>
+            
+            {/* LinkedIn */}
+            <a href="https://www.linkedin.com/in/jaydeep-n-a51a28252/" className="hover:text-white transition">
+              <FaLinkedin />
+            </a>
           </div>
         </div>
       </div>
 
       {/* Copyright */}
       <div className="text-center text-xs text-gray-500 mt-8">
-        © Copyright 2022. Made by Elias
+        © Copyright 2025. Made by Jaydeep
       </div>
     </footer>
   );

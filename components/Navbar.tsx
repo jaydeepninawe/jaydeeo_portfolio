@@ -2,15 +2,16 @@
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { FaGithub, FaDribbble, FaFigma } from "react-icons/fa";
+import Dropdown from './Dropdown';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
   const navLinks = [
-    { href: "#home", label: "home" },
-    { href: "#works", label: "works" },
-    { href: "#about-me", label: "about-me" },
-    { href: "#contacts", label: "contacts" },
+    { href: "#home", label: "Home" },
+    { href: "#works", label: "Works" },
+    { href: "#about-me", label: "About-me" },
+    { href: "#contacts", label: "Contacts" },
   ];
 
   return (
@@ -27,7 +28,7 @@ export default function Navbar() {
           >
             <path d="M12 4v16m8-8H4" />
           </svg>
-          Elias
+          JN
         </div>
 
         {/* Desktop Nav */}
@@ -38,10 +39,10 @@ export default function Navbar() {
               href={link.href}
               className="text-sm hover:text-purple-400 transition"
             >
-              #{link.label}
+              {link.label}
             </a>
           ))}
-          <div className="text-sm cursor-pointer">EN ▾</div>
+          <div className="text-sm cursor-pointer"><Dropdown/></div>
         </nav>
 
         {/* Hamburger Icon */}
