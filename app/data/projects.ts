@@ -1,4 +1,4 @@
-const image = "/project.png"; // Assuming this is a placeholder image URL or path
+const image = "/project.png"; // Make sure this image exists in your public folder
 
 export interface Project {
   title: string;
@@ -6,9 +6,9 @@ export interface Project {
   tech: string;
   description: string;
   image?: string;
-  live?: boolean;
-  github?: boolean;
-  figma?: boolean;
+  live?: string;
+  github?: string;
+  figma?: string;
 }
 
 export interface Projects {
@@ -24,8 +24,7 @@ const projects: Projects = {
       slug: "chertnodes",
       tech: "HTML SCSS Python Flask",
       description: "Minecraft servers hosting",
-      live: true,
-      github: false,
+      live: "https://chertnodes.example.com",
     },
     {
       image,
@@ -33,8 +32,7 @@ const projects: Projects = {
       slug: "kahoot-answers-viewer",
       tech: "CSS Express Node.js",
       description: "Get answers to your kahoot quiz",
-      live: true,
-      github: false,
+      live: "https://kahoot-viewer.example.com",
     },
     {
       image,
@@ -42,8 +40,7 @@ const projects: Projects = {
       slug: "protectx",
       tech: "Next Express Discord.js Node.js",
       description: "Discord anti-crash bot",
-      live: false,
-      github: true,
+      github: "https://github.com/youruser/protectx",
     },
     {
       image,
@@ -51,8 +48,7 @@ const projects: Projects = {
       slug: "kotik-bot",
       tech: "HTML CSS JS",
       description: "Multi-functional discord bot",
-      live: true,
-      github: false,
+      live: "https://kotikbot.example.com",
     },
     {
       image,
@@ -60,8 +56,7 @@ const projects: Projects = {
       slug: "portfolio",
       tech: "Elias Portfolio Vue TS CSS",
       description: "You're viewing it rn 😎",
-      live: false,
-      github: true,
+      github: "https://github.com/youruser/portfolio",
     },
   ],
   small: [
@@ -70,56 +65,56 @@ const projects: Projects = {
       slug: "bot-boilerplate",
       tech: "Discord.js TS JS",
       description: "Start creating scalable discord bots with typescript",
-      github: true,
+      github: "https://github.com/youruser/bot-boilerplate",
     },
     {
       title: "My blog",
       slug: "my-blog",
       tech: "Vue CSS JS",
       description: "Front-end of my future blog website written in vue",
-      github: true,
+      github: "https://github.com/youruser/my-blog",
     },
     {
       title: "Chess pro",
       slug: "chess-pro",
       tech: "Figma",
       description: "Figma landing page about environment & training chess",
-      figma: true,
+      figma: "https://www.figma.com/file/chess-pro",
     },
     {
       title: "Crash protect website",
       slug: "crash-protect-website",
       tech: "Figma",
       description: "Figma template for website about discord anti-nukes and crash bots",
-      figma: true,
+      figma: "https://www.figma.com/file/crash-protect",
     },
     {
       title: "CSS expirement",
       slug: "css-expirement",
       tech: "HTML CSS",
       description: "Collection of my different subtle wrappers in css",
-      live: true,
+      live: "https://css-experiments.example.com",
     },
     {
       title: "Web Dev nvim config",
       slug: "web-dev-nvim-config",
       tech: "Lua Neovim",
       description: "Config for neovim perfect for frontend web devs",
-      github: true,
+      github: "https://github.com/youruser/web-dev-nvim-config",
     },
     {
       title: "Ooku",
       slug: "ooku",
       tech: "Python Django HTML",
       description: "Simple link shortener with auth",
-      live: true,
+      live: "https://ooku.example.com",
     },
     {
       title: "School website",
       slug: "school-website",
       tech: "Figma",
       description: "Sleek template website for my school",
-      figma: true,
+      figma: "https://www.figma.com/file/school-site",
     },
   ],
 };

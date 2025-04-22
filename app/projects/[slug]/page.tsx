@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
-import projects from "../../data/projects";
 import Image from "next/image";
+import projects from "../../data/projects";
 
 type Props = {
   params: {
@@ -20,8 +20,8 @@ export default async function ProjectDetailPage({ params }: Props) {
   const { slug } = params;
 
   const project =
-    projects.complete.find((p: { slug: string; }) => p.slug === slug) ||
-    projects.small.find((p: { slug: string; }) => p.slug === slug);
+    projects.complete.find((p) => p.slug === slug) ||
+    projects.small.find((p) => p.slug === slug);
 
   if (!project) return notFound();
 
@@ -40,24 +40,18 @@ export default async function ProjectDetailPage({ params }: Props) {
         </header>
 
         {project.image && (
-          <section className="relative w-full h-64 sm:h-80 mb-8 rounded-lg overflow-hidden border border-[#2f2f38]">
+          <div className="relative w-full h-64 sm:h-80 mb-8 rounded-lg overflow-hidden border border-[#2f2f38]">
             <Image
-              src={
-                project.image.startsWith("/")
-                  ? project.image
-                  : `/${project.image}`
-              }
+              src={project.image.startsWith("/") ? project.image : `/${project.image}`}
               alt={project.title}
               fill
               className="object-cover"
             />
-          </section>
+          </div>
         )}
 
         <section className="mb-6">
-          <h3 className="text-base sm:text-lg text-purple-400 mb-1">
-            Tech Stack:
-          </h3>
+          <h3 className="text-base sm:text-lg text-purple-400 mb-1">Tech Stack:</h3>
           <p className="text-sm text-gray-300">{project.tech}</p>
         </section>
 
@@ -74,7 +68,7 @@ export default async function ProjectDetailPage({ params }: Props) {
           )}
           {project.github && (
             <a
-               href="#"
+              href="#"
               target="_blank"
               rel="noopener noreferrer"
               className="text-sm px-4 py-2 border border-purple-500 text-purple-300 rounded-md hover:bg-purple-500/20"
@@ -84,7 +78,7 @@ export default async function ProjectDetailPage({ params }: Props) {
           )}
           {project.figma && (
             <a
-               href="#"
+              href="#"
               target="_blank"
               rel="noopener noreferrer"
               className="text-sm px-4 py-2 border border-purple-500 text-purple-300 rounded-md hover:bg-purple-500/20"
