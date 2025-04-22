@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import projects from "@/data/projects"; // adjust this if path differs
+import projects from "../../data/projects"; // adjust this if path differs
 import Image from "next/image";
 
 export async function generateStaticParams() {
