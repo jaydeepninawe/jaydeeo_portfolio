@@ -1,17 +1,8 @@
-// app/projects/[slug]/page.tsx
-
 import { notFound } from "next/navigation";
 import Image from "next/image";
-import projects from "../../data/projects"; // Import project data
+import projects from "../../data/projects";
 
-// This is the correct type for your page props
-type Params = {
-  params: {
-    slug: string;
-  };
-};
-
-// Generate static paths for your project detail pages
+// Generate static params for all project slugs
 export async function generateStaticParams() {
   const allSlugs = [...projects.complete, ...projects.small].map((proj) => ({
     slug: proj.slug,
@@ -19,16 +10,15 @@ export async function generateStaticParams() {
   return allSlugs;
 }
 
-// This is the page component for displaying project details
-export default function ProjectDetailPage({ params }: Params) {
-  const { slug } = params;
+// Page component using params directly
+export default function ProjectDetailPage(props: { params: { slug: string } }) {
+  const slug = props.params.slug;
 
-  // Find project based on slug
   const project =
     projects.complete.find((p) => p.slug === slug) ||
     projects.small.find((p) => p.slug === slug);
 
-  if (!project) return notFound(); // If project not found, show 404 page
+  if (!project) return notFound();
 
   return (
     <section className="px-6 md:px-20 py-16 bg-[#0f111a] text-white font-mono mt-10 min-h-screen">
@@ -57,7 +47,7 @@ export default function ProjectDetailPage({ params }: Params) {
       <div className="flex gap-3 mt-6">
         {project.live && (
           <a
-            href={project.live}
+            href={String(project.live)}
             target="_blank"
             rel="noopener noreferrer"
             className="text-sm px-4 py-2 border border-purple-500 text-purple-300 rounded-md hover:bg-purple-500/20"
@@ -67,7 +57,7 @@ export default function ProjectDetailPage({ params }: Params) {
         )}
         {project.github && (
           <a
-            href={project.github}
+            href={String(project.github)}
             target="_blank"
             rel="noopener noreferrer"
             className="text-sm px-4 py-2 border border-purple-500 text-purple-300 rounded-md hover:bg-purple-500/20"
@@ -77,7 +67,7 @@ export default function ProjectDetailPage({ params }: Params) {
         )}
         {project.figma && (
           <a
-            href={project.figma}
+            href={String(project.figma)}
             target="_blank"
             rel="noopener noreferrer"
             className="text-sm px-4 py-2 border border-purple-500 text-purple-300 rounded-md hover:bg-purple-500/20"
