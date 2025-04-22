@@ -2,25 +2,20 @@ import { notFound } from "next/navigation";
 import projects from "../../data/projects";
 import Image from "next/image";
 
-// ✅ Generate Static Params (SSG)
-export async function generateStaticParams() {
-  return [...projects.complete, ...projects.small].map((project) => ({
-    slug: project.slug,
-  }));
-}
-
-// ✅ Page Component — no external PageProps type, clean inference
-export default function ProjectDetailPage({
+// Page Component — Using props directly to access the slug
+export default async function ProjectDetailPage({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{slug :string}>
 }) {
-  const { slug } = params;
+  const slug = (await params).slug;
 
+  // Find the project by slug
   const project =
     projects.complete.find((p) => p.slug === slug) ||
     projects.small.find((p) => p.slug === slug);
 
+  // If no project is found, return the notFound page
   if (!project) return notFound();
 
   return (
@@ -28,6 +23,7 @@ export default function ProjectDetailPage({
       <h1 className="text-3xl mb-4">{project.title}</h1>
       <p className="text-gray-400 mb-6">{project.description}</p>
 
+      {/* Display image if it exists */}
       {project.image && (
         <div className="w-full h-64 relative mb-6 rounded-lg overflow-hidden border border-[#2f2f38]">
           <Image
@@ -43,6 +39,7 @@ export default function ProjectDetailPage({
         <strong className="text-purple-400">Tech:</strong> {project.tech}
       </p>
 
+      {/* Display external links if they exist */}
       <div className="flex gap-3 mt-4">
         {project.live && (
           <a
