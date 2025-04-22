@@ -12,15 +12,16 @@ export async function generateStaticParams() {
   const allSlugs = [...projects.complete, ...projects.small].map((proj) => ({
     slug: proj.slug,
   }));
+
   return allSlugs;
 }
 
-export default function ProjectDetailPage({ params }: Props) {
+export default async function ProjectDetailPage({ params }: Props) {
   const { slug } = params;
 
   const project =
-    projects.complete.find((p) => p.slug === slug) ||
-    projects.small.find((p) => p.slug === slug);
+    projects.complete.find((p: { slug: string; }) => p.slug === slug) ||
+    projects.small.find((p: { slug: string; }) => p.slug === slug);
 
   if (!project) return notFound();
 
@@ -83,7 +84,7 @@ export default function ProjectDetailPage({ params }: Props) {
           )}
           {project.figma && (
             <a
-              href="#"
+               href="#"
               target="_blank"
               rel="noopener noreferrer"
               className="text-sm px-4 py-2 border border-purple-500 text-purple-300 rounded-md hover:bg-purple-500/20"
