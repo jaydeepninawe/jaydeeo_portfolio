@@ -1,29 +1,34 @@
+// app/projects/[slug]/page.tsx
+
 import { notFound } from "next/navigation";
 import Image from "next/image";
-import projects from "../../data/projects"; // Import your project data
+import projects from "../../data/projects"; // Import project data
 
+// This is the correct type for your page props
 type Params = {
   params: {
     slug: string;
   };
 };
 
-// Ensure generateStaticParams returns a Promise
-export async function generateStaticParams(): Promise<{ slug: string }[]> {
+// Generate static paths for your project detail pages
+export async function generateStaticParams() {
   const allSlugs = [...projects.complete, ...projects.small].map((proj) => ({
     slug: proj.slug,
   }));
   return allSlugs;
 }
 
+// This is the page component for displaying project details
 export default function ProjectDetailPage({ params }: Params) {
   const { slug } = params;
 
+  // Find project based on slug
   const project =
     projects.complete.find((p) => p.slug === slug) ||
     projects.small.find((p) => p.slug === slug);
 
-  if (!project) return notFound();
+  if (!project) return notFound(); // If project not found, show 404 page
 
   return (
     <section className="px-6 md:px-20 py-16 bg-[#0f111a] text-white font-mono mt-10 min-h-screen">
