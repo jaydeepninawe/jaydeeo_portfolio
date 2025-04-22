@@ -1,15 +1,15 @@
 import { notFound } from "next/navigation";
-import projects from "../../data/projects";
+import projects from "@/data/projects";
 import Image from "next/image";
 
-// ✅ Generate all static paths (slugs)
+// ✅ Generate Static Params (SSG)
 export async function generateStaticParams() {
   return [...projects.complete, ...projects.small].map((project) => ({
     slug: project.slug,
   }));
 }
 
-// ✅ Page component
+// ✅ Page Component — no external PageProps type, clean inference
 export default function ProjectDetailPage({
   params,
 }: {
@@ -24,19 +24,14 @@ export default function ProjectDetailPage({
   if (!project) return notFound();
 
   return (
-    <section className="px-6 md:px-20 py-16 bg-[#0f111a] text-white font-mono mt-10 min-h-screen">
-      <h2 className="text-2xl sm:text-3xl flex items-center mb-4">
-        <span className="text-purple-400">/</span>
-        {project.title}
-        <span className="flex-1 h-px bg-purple-400 ml-4"></span>
-      </h2>
-
-      <p className="text-gray-400 mb-8">{project.description}</p>
+    <section className="p-6 text-white bg-[#0f111a] min-h-screen mt-10 font-mono">
+      <h1 className="text-3xl mb-4">{project.title}</h1>
+      <p className="text-gray-400 mb-6">{project.description}</p>
 
       {project.image && (
         <div className="w-full h-64 relative mb-6 rounded-lg overflow-hidden border border-[#2f2f38]">
           <Image
-            src={project.image.startsWith("/") ? project.image : `/${project.image}`}
+            src={project.image}
             alt={project.title}
             fill
             className="object-cover"
@@ -44,19 +39,19 @@ export default function ProjectDetailPage({
         </div>
       )}
 
-      <div className="mb-4 text-sm text-gray-300">
-        <span className="text-purple-400">Tech Stack:</span> {project.tech}
-      </div>
+      <p className="text-sm text-gray-300 mb-2">
+        <strong className="text-purple-400">Tech:</strong> {project.tech}
+      </p>
 
-      <div className="flex gap-3 mt-6 flex-wrap">
+      <div className="flex gap-3 mt-4">
         {project.live && (
           <a
             href={typeof project.live === "string" ? project.live : "#"}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-sm px-4 py-2 border border-purple-500 text-purple-300 rounded-md hover:bg-purple-500/20"
+            className="border border-purple-400 px-4 py-2 rounded text-sm"
           >
-            Live ↪
+            Live ↗
           </a>
         )}
         {project.github && (
@@ -64,9 +59,9 @@ export default function ProjectDetailPage({
             href={typeof project.github === "string" ? project.github : "#"}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-sm px-4 py-2 border border-purple-500 text-purple-300 rounded-md hover:bg-purple-500/20"
+            className="border border-purple-400 px-4 py-2 rounded text-sm"
           >
-            GitHub ↪
+            GitHub ↗
           </a>
         )}
         {project.figma && (
@@ -74,9 +69,9 @@ export default function ProjectDetailPage({
             href={typeof project.figma === "string" ? project.figma : "#"}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-sm px-4 py-2 border border-purple-500 text-purple-300 rounded-md hover:bg-purple-500/20"
+            className="border border-purple-400 px-4 py-2 rounded text-sm"
           >
-            Figma ↪
+            Figma ↗
           </a>
         )}
       </div>
