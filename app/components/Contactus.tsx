@@ -19,7 +19,7 @@ const Contactus = () => {
       [id]: value
     }));
   };
-  const URL = process.env.URL;
+  const URL = process.env.NEXT_PUBLIC_API_URL;
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);

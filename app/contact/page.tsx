@@ -25,7 +25,7 @@ const ContactSection = () => {
     e.preventDefault();
     setIsSubmitting(true);
     setSubmitStatus(null);
-    const URL = process.env.URL;
+    const URL = process.env.NEXT_PUBLIC_API_URL;
     try {
       const response = await fetch(`${URL}/send-email`, {
         method: 'POST',
