@@ -19,14 +19,14 @@ const Contactus = () => {
       [id]: value
     }));
   };
-  const URL = process.env.NEXT_PUBLIC_API_URL;
+  // const URL = process.env.NEXT_PUBLIC_API_URL;
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     setSubmitStatus(null);
 
     try {
-      const response = await fetch(`${URL}/send-email`, {
+      const response = await fetch("https://portfolio-backend-d4mn.onrender.com/send-email", {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
