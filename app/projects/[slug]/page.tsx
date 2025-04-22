@@ -2,19 +2,19 @@ import { notFound } from "next/navigation";
 import projects from "../../data/projects";
 import Image from "next/image";
 
+// ✅ Generate all static paths (slugs)
 export async function generateStaticParams() {
   return [...projects.complete, ...projects.small].map((project) => ({
     slug: project.slug,
   }));
 }
 
-interface PageProps {
-  params: {
-    slug: string;
-  };
-}
-
-export default function ProjectDetailPage({ params }: PageProps) {
+// ✅ Page component
+export default function ProjectDetailPage({
+  params,
+}: {
+  params: { slug: string };
+}) {
   const { slug } = params;
 
   const project =
@@ -36,11 +36,7 @@ export default function ProjectDetailPage({ params }: PageProps) {
       {project.image && (
         <div className="w-full h-64 relative mb-6 rounded-lg overflow-hidden border border-[#2f2f38]">
           <Image
-            src={
-              project.image.startsWith("/")
-                ? project.image
-                : `/${project.image}`
-            }
+            src={project.image.startsWith("/") ? project.image : `/${project.image}`}
             alt={project.title}
             fill
             className="object-cover"
