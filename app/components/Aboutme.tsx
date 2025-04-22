@@ -41,7 +41,7 @@ const AboutUs = () => {
         {/* Left Text Block */}
         <div className="md:w-1/2">
           <h2 className="text-2xl sm:text-3xl font-mono mb-6 ">
-            <span className="text-purple-400">#</span>about-us
+            <span className="text-purple-400">#</span>about-me
             <span className="w-2/3 h-px bg-purple-400 inline-block ml-4 align-middle"></span>
           </h2>
 
