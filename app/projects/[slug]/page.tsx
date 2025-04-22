@@ -1,20 +1,20 @@
 import { notFound } from "next/navigation";
-import projects from "../../data/projects"; // adjust this if path differs
+import projects from "../../data/projects";
 import Image from "next/image";
 
 export async function generateStaticParams() {
-  const allSlugs = [...projects.complete, ...projects.small].map((proj) => ({
-    slug: proj.slug,
+  return [...projects.complete, ...projects.small].map((project) => ({
+    slug: project.slug,
   }));
-  return allSlugs;
 }
 
-// ✅ Fix: use inferred types for `params` in the function argument
-export default function ProjectDetailPage({
-  params,
-}: {
-  params: { slug: string };
-}) {
+interface PageProps {
+  params: {
+    slug: string;
+  };
+}
+
+export default function ProjectDetailPage({ params }: PageProps) {
   const { slug } = params;
 
   const project =
@@ -30,12 +30,17 @@ export default function ProjectDetailPage({
         {project.title}
         <span className="flex-1 h-px bg-purple-400 ml-4"></span>
       </h2>
+
       <p className="text-gray-400 mb-8">{project.description}</p>
 
       {project.image && (
         <div className="w-full h-64 relative mb-6 rounded-lg overflow-hidden border border-[#2f2f38]">
           <Image
-            src={project.image.startsWith("/") ? project.image : `/${project.image}`}
+            src={
+              project.image.startsWith("/")
+                ? project.image
+                : `/${project.image}`
+            }
             alt={project.title}
             fill
             className="object-cover"
@@ -48,9 +53,9 @@ export default function ProjectDetailPage({
       </div>
 
       <div className="flex gap-3 mt-6 flex-wrap">
-        {typeof project.live === "string" && (
+        {project.live && (
           <a
-            href={project.live}
+            href={typeof project.live === "string" ? project.live : "#"}
             target="_blank"
             rel="noopener noreferrer"
             className="text-sm px-4 py-2 border border-purple-500 text-purple-300 rounded-md hover:bg-purple-500/20"
@@ -58,9 +63,9 @@ export default function ProjectDetailPage({
             Live ↪
           </a>
         )}
-        {typeof project.github === "string" && (
+        {project.github && (
           <a
-            href={project.github}
+            href={typeof project.github === "string" ? project.github : "#"}
             target="_blank"
             rel="noopener noreferrer"
             className="text-sm px-4 py-2 border border-purple-500 text-purple-300 rounded-md hover:bg-purple-500/20"
@@ -68,9 +73,9 @@ export default function ProjectDetailPage({
             GitHub ↪
           </a>
         )}
-        {typeof project.figma === "string" && (
+        {project.figma && (
           <a
-            href={project.figma}
+            href={typeof project.figma === "string" ? project.figma : "#"}
             target="_blank"
             rel="noopener noreferrer"
             className="text-sm px-4 py-2 border border-purple-500 text-purple-300 rounded-md hover:bg-purple-500/20"
