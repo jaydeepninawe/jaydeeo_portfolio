@@ -1,8 +1,7 @@
 import { notFound } from "next/navigation";
+import projects from "@/data/projects"; // adjust this if path differs
 import Image from "next/image";
-import projects from "../../data/projects";
 
-// Generate static params for all project slugs
 export async function generateStaticParams() {
   const allSlugs = [...projects.complete, ...projects.small].map((proj) => ({
     slug: proj.slug,
@@ -10,9 +9,13 @@ export async function generateStaticParams() {
   return allSlugs;
 }
 
-// Page component using params directly
-export default function ProjectDetailPage(props: { params: { slug: string } }) {
-  const slug = props.params.slug;
+// ✅ Fix: use inferred types for `params` in the function argument
+export default function ProjectDetailPage({
+  params,
+}: {
+  params: { slug: string };
+}) {
+  const { slug } = params;
 
   const project =
     projects.complete.find((p) => p.slug === slug) ||
@@ -32,7 +35,7 @@ export default function ProjectDetailPage(props: { params: { slug: string } }) {
       {project.image && (
         <div className="w-full h-64 relative mb-6 rounded-lg overflow-hidden border border-[#2f2f38]">
           <Image
-            src={project.image}
+            src={project.image.startsWith("/") ? project.image : `/${project.image}`}
             alt={project.title}
             fill
             className="object-cover"
@@ -44,10 +47,10 @@ export default function ProjectDetailPage(props: { params: { slug: string } }) {
         <span className="text-purple-400">Tech Stack:</span> {project.tech}
       </div>
 
-      <div className="flex gap-3 mt-6">
-        {project.live && (
+      <div className="flex gap-3 mt-6 flex-wrap">
+        {typeof project.live === "string" && (
           <a
-            href={String(project.live)}
+            href={project.live}
             target="_blank"
             rel="noopener noreferrer"
             className="text-sm px-4 py-2 border border-purple-500 text-purple-300 rounded-md hover:bg-purple-500/20"
@@ -55,9 +58,9 @@ export default function ProjectDetailPage(props: { params: { slug: string } }) {
             Live ↪
           </a>
         )}
-        {project.github && (
+        {typeof project.github === "string" && (
           <a
-            href={String(project.github)}
+            href={project.github}
             target="_blank"
             rel="noopener noreferrer"
             className="text-sm px-4 py-2 border border-purple-500 text-purple-300 rounded-md hover:bg-purple-500/20"
@@ -65,9 +68,9 @@ export default function ProjectDetailPage(props: { params: { slug: string } }) {
             GitHub ↪
           </a>
         )}
-        {project.figma && (
+        {typeof project.figma === "string" && (
           <a
-            href={String(project.figma)}
+            href={project.figma}
             target="_blank"
             rel="noopener noreferrer"
             className="text-sm px-4 py-2 border border-purple-500 text-purple-300 rounded-md hover:bg-purple-500/20"
