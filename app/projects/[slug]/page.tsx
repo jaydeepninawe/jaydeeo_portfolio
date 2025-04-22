@@ -1,22 +1,22 @@
 import { notFound } from "next/navigation";
 import Image from "next/image";
-import projects from "../../data/projects";
+import projects from "../../data/projects"; // Import your project data
 
-type Props = {
+type Params = {
   params: {
     slug: string;
   };
 };
 
-export async function generateStaticParams() {
+// Ensure generateStaticParams returns a Promise
+export async function generateStaticParams(): Promise<{ slug: string }[]> {
   const allSlugs = [...projects.complete, ...projects.small].map((proj) => ({
     slug: proj.slug,
   }));
-
   return allSlugs;
 }
 
-export default async function ProjectDetailPage({ params }: Props) {
+export default function ProjectDetailPage({ params }: Params) {
   const { slug } = params;
 
   const project =
@@ -26,68 +26,61 @@ export default async function ProjectDetailPage({ params }: Props) {
   if (!project) return notFound();
 
   return (
-    <article className="bg-[#0f111a] text-white font-mono min-h-screen py-16 px-6 md:px-12 lg:px-24">
-      <div className="max-w-4xl mx-auto">
-        <header className="mb-10">
-          <h2 className="text-3xl sm:text-4xl font-bold flex items-center gap-2 mb-2">
-            <span className="text-purple-400">/</span>
-            {project.title}
-            <span className="flex-1 h-px bg-purple-400 ml-4"></span>
-          </h2>
-          <p className="text-gray-400 text-sm sm:text-base">
-            {project.description}
-          </p>
-        </header>
+    <section className="px-6 md:px-20 py-16 bg-[#0f111a] text-white font-mono mt-10 min-h-screen">
+      <h2 className="text-2xl sm:text-3xl flex items-center mb-4">
+        <span className="text-purple-400">/</span>
+        {project.title}
+        <span className="flex-1 h-px bg-purple-400 ml-4"></span>
+      </h2>
+      <p className="text-gray-400 mb-8">{project.description}</p>
 
-        {project.image && (
-          <div className="relative w-full h-64 sm:h-80 mb-8 rounded-lg overflow-hidden border border-[#2f2f38]">
-            <Image
-              src={project.image.startsWith("/") ? project.image : `/${project.image}`}
-              alt={project.title}
-              fill
-              className="object-cover"
-            />
-          </div>
-        )}
+      {project.image && (
+        <div className="w-full h-64 relative mb-6 rounded-lg overflow-hidden border border-[#2f2f38]">
+          <Image
+            src={project.image}
+            alt={project.title}
+            fill
+            className="object-cover"
+          />
+        </div>
+      )}
 
-        <section className="mb-6">
-          <h3 className="text-base sm:text-lg text-purple-400 mb-1">Tech Stack:</h3>
-          <p className="text-sm text-gray-300">{project.tech}</p>
-        </section>
-
-        <section className="flex flex-wrap gap-3 mt-6">
-          {project.live && (
-            <a
-              href="#"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-sm px-4 py-2 border border-purple-500 text-purple-300 rounded-md hover:bg-purple-500/20"
-            >
-              Live ↪
-            </a>
-          )}
-          {project.github && (
-            <a
-              href="#"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-sm px-4 py-2 border border-purple-500 text-purple-300 rounded-md hover:bg-purple-500/20"
-            >
-              GitHub ↪
-            </a>
-          )}
-          {project.figma && (
-            <a
-              href="#"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-sm px-4 py-2 border border-purple-500 text-purple-300 rounded-md hover:bg-purple-500/20"
-            >
-              Figma ↪
-            </a>
-          )}
-        </section>
+      <div className="mb-4 text-sm text-gray-300">
+        <span className="text-purple-400">Tech Stack:</span> {project.tech}
       </div>
-    </article>
+
+      <div className="flex gap-3 mt-6">
+        {project.live && (
+          <a
+            href={project.live}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-sm px-4 py-2 border border-purple-500 text-purple-300 rounded-md hover:bg-purple-500/20"
+          >
+            Live ↪
+          </a>
+        )}
+        {project.github && (
+          <a
+            href={project.github}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-sm px-4 py-2 border border-purple-500 text-purple-300 rounded-md hover:bg-purple-500/20"
+          >
+            GitHub ↪
+          </a>
+        )}
+        {project.figma && (
+          <a
+            href={project.figma}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-sm px-4 py-2 border border-purple-500 text-purple-300 rounded-md hover:bg-purple-500/20"
+          >
+            Figma ↪
+          </a>
+        )}
+      </div>
+    </section>
   );
 }
