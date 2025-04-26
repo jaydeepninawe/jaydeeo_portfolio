@@ -26,7 +26,7 @@ const Contactus = () => {
     setSubmitStatus(null);
     const URL = process.env.NEXT_PUBLIC_API_URL;
     try {
-      const response = await fetch(`${URL}/send-email`, {
+      const response = await fetch("https://portfolio-backend-d4mn.onrender.com/send-email", {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
