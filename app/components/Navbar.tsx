@@ -13,6 +13,7 @@ export default function Navbar() {
     { href: "/projects", label: "Works" },
     { href: "/aboutus", label: "About-me" },
     { href: "/contact", label: "Contacts" },
+    {href:"/blogs" , label:"blogs"},
   ];
 
   return (
@@ -62,7 +63,7 @@ export default function Navbar() {
               {link.label}
             </a>
           ))}
-          <div className="text-base mt-2">EN ▾</div>
+          {/* <div className="text-base mt-2">EN ▾</div> */}
           {/* Social Icons */}
           <div className="flex gap-6 mt-4">
             <a href="https://github.com/" target="_blank"><FaGithub size={20} /></a>
